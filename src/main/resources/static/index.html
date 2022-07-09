@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+  <title>Tiny Url!</title>
+
+  <script  type="text/JavaScript">
+
+    async function createUrl() {
+      var shortUrl =  document.getElementsByName('shortUrl')[0].value
+      var longUrl =  document.getElementsByName('longUrl')[0].value
+      var value = ""
+
+      if (validate(shortUrl) && validate(longUrl)) {
+        url = "http://www.localhost:9090/api/createShortUrl?shortUrl=" + shortUrl + "&longUrl=" + longUrl;
+        console.log('url ' + url)
+        try {
+        let response = await fetch(url);
+          if (response.status == 201 ) {
+
+            value = "Your short url created successfully. Kindly verify !!"
+          } else {
+            value = "Opps !! " + shortUrl + " already exist in our system, Kindly choose another one"
+          }
+        } catch(err) {
+            value = "Exception occur " + err
+        }
+
+        console.log(value);
+        document.getElementById("resultLabelId").innerHTML = value;
+
+      }
+    }
+
+    function validate(value) {
+      return typeof value == 'string' && value.length > 1;
+    }
+
+  </script>
+
+</head>
+
+<body>
+<div class="container pt-5 text-center">
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+      <h3 class="text-center"><pre> T I N Y   U R L </pre></h3>
+    </div>
+    <div class="col-sm-1"></div>
+  </div>
+</div>
+<br><br><br><br><br>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+      <div class="card border-1 rounded-lg">
+
+        <div class="card-header text-center">
+          <h3>Make it SIMPLE !!</h3>
+        </div>
+
+        <div class="card-body text-center">
+          <h5 class="card-title">Welcome to Tiny Url</h5>
+          <p class="card-text">Create your stylist, customise or simple url</p>
+
+            <!-- form -->
+            <form id="urlFormId" class="text-center mt-5" name="urlForm" >
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-4 text-right">
+                    <label class="dark">http://www.domain.com/tiny/</label>
+                  </div>
+                  <div class="col-sm-4">
+                    <input type="text" class="form-control ml-1" placeholder="shortUrl" id="shortUrlId" name="shortUrl">
+                  </div>
+                  <div class="col-sm-2"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control text-center" placeholder="Long boring Url" id="longUrlId" name="longUrl">
+              </div>
+              <div class="form-group">
+                <label id="resultLabelId" ></label>
+              </div>
+              <button type="button" class="btn btn-primary" onclick="createUrl(this.form)">Submit</button>
+            </form>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-sm-1"></div>
+  </div>
+</div>
+
+
+<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
+</body>
+</html>
